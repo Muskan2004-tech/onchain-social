@@ -1,36 +1,35 @@
 {
   "canisters": {
     "internet_identity": {
+      "type": "custom",
+      "wasm": "src/internet_identity/internet_identity_dev.wasm",
       "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
-      "frontend": {},
       "remote": {
         "id": {
           "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
         }
       },
-      "type": "custom",
-      "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz"
+      "frontend": {}
     },
     "onchain-social-backend": {
-      "candid": "src/onchain-social-backend/onchain-social-backend.did",
+      "type": "rust",
       "package": "onchain-social-backend",
-      "type": "rust"
+      "candid": "src/onchain-social-backend/onchain-social-backend.did"
     },
     "onchain-social-frontend": {
-      "dependencies": [
-        "onchain-social-backend"
-      ],
-      "source": [
-        "src/onchain-social-frontend/dist"
-      ],
       "type": "assets",
-      "workspace": "onchain-social-frontend"
+      "source": ["src/onchain-social-frontend/dist"],
+      "dependencies": ["onchain-social-backend"],
+      "build": {
+        "root": "src/onchain-social-frontend",
+        "command": "npm run build"
+      }
     }
   },
   "defaults": {
     "build": {
-      "args": "",
-      "packtool": ""
+      "packtool": "",
+      "args": ""
     }
   },
   "output_env_file": ".env",
